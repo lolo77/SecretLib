@@ -11,7 +11,7 @@ Store securely...
 - transmit mail-filtered files
 - share multi-secret file infos
 
-...into some *innocent vacation or family photo*.
+...into some *innocent* vacation or family photos.
 -> It can now be stored in the cloud and kept **secure** !
 
 ## Strong encryption and low-noise generation
