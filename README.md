@@ -21,6 +21,5 @@ The image encoding process uses a semi-random positional algo to place the bit s
 
 ## Works for both JPEG and PNG images.
 Retrieve your secrets with 2 security factors :
-- **master password** (image en/decoding)
-- **data password** (data en/decoding)
-
+- **Master password** + **Hash algo** (image en/decoding)
+- **Data password** (data en/decoding)
