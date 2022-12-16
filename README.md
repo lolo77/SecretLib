@@ -23,3 +23,7 @@ The image encoding process uses a semi-random positional algo to place the bit s
 Retrieve your secrets with 2 security factors :
 - **Master password** + **Hash algo** (image en/decoding)
 - **Data password** (data en/decoding)
+
+## License
+
+[MIT](http://opensource.org/licenses/MIT)
