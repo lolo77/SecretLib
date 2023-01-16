@@ -54,3 +54,11 @@ WriterJpeg
     JPEG writer ported to JavaScript and optimized by Andreas Ritter, www.bytestrom.eu, 11/2009
 
     JPEG writer ported to java 8 by Florent FRADET - 11/2022
+
+
+PDF support
+-----------
+
+Read & Write operations are performed with itextpdf java library.
+Open Source AGPLv3 license
+Please visit https://itextpdf.com/how-buy/AGPLv3-license
