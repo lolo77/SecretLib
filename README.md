@@ -27,4 +27,6 @@ Retrieve your secrets with 2 security factors :
 
 ## License
 
-[MIT](http://opensource.org/licenses/MIT)
+![image](https://user-images.githubusercontent.com/9278772/212686804-5c36c483-8ba9-4c09-82c0-ae90a3697f83.png)
+
+[GNU AGPL v3](https://www.gnu.org/licenses/agpl-3.0.en.html)
