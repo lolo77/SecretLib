@@ -23,6 +23,18 @@ public class HiUtils {
         return md.digest(input);
     }
 
+    public static String toStringHexRaw(byte[] data) {
+        StringBuilder sb = new StringBuilder();
+        if (data == null) {
+            return "null";
+        }
+
+        for (int i = 0; i < data.length; i++) {
+            sb.append(String.format("%02X", (int)(data[i]) & 0xFF));
+        }
+        return sb.toString();
+    }
+
     public static String toStringHex(byte[] data, int limit) {
         StringBuilder sb = new StringBuilder();
         if (data == null) {

@@ -33,10 +33,15 @@ public class HiDataDecoderJob extends HiDataJob {
                 try {
                     dfd.decryptData(params);
                     String sFileName = dfd.getName();
-                    if (sFileName == null) {
-                        sFileName = sOutputFile + chunkNum;
+                    if ((sFileName == null) || (sFileName.length() == 0)) {
+                        sFileName = sOutputFile;
+                        if ((!sOutputFile.endsWith("/")) && (!sOutputFile.endsWith("\\"))) {
+                            sFileName += "/";
+                        }
+                        sFileName += "item" + chunkNum;
                         chunkNum++;
                     }
+                    LOG.debug("Extracting file " + sFileName);
                     File f = new File(fOutput.getAbsolutePath() + "/" + sFileName);
                     FileOutputStream fos = new FileOutputStream(f);
                     dfd.write(fos);

@@ -1,5 +1,6 @@
 package com.secretlib.io.stream;
 
+import com.secretlib.util.Log;
 import com.secretlib.util.Parameters;
 import com.secretlib.util.HiUtils;
 
@@ -15,6 +16,8 @@ import java.util.*;
  */
 public class HiDataStreamFactory {
 
+    private static final Log LOG = new Log(HiDataStreamFactory.class);
+
     private static final List<HiDataAbstractInputStream> LST_IN = new ArrayList<>();
     private static final List<HiDataAbstractOutputStream> LST_OUT = new ArrayList<>();
 
@@ -23,10 +26,18 @@ public class HiDataStreamFactory {
      */
     static {
         registerInputStream(new HiDataPngInputStream());
-        registerInputStream(new HiDataJpegInputStream());
-
         registerOutputStream(new HiDataPngOutputStream());
+
+        registerInputStream(new HiDataJpegInputStream());
         registerOutputStream(new HiDataJpegOutputStream());
+
+        try {
+            ClassLoader.getSystemClassLoader().loadClass("com.itextpdf.kernel.pdf.PdfDocument");
+            registerInputStream(new HiDataPdfInputStream());
+            registerOutputStream(new HiDataPdfOutputStream());
+        } catch (ClassNotFoundException e) {
+            LOG.warn("Libraries not found : PDF support disabled");
+        }
     }
 
     public static void registerInputStream(HiDataAbstractInputStream stream) {

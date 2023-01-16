@@ -1,5 +1,6 @@
 package com.secretlib.io.stream;
 
+import com.secretlib.exception.BagParseFinishException;
 import com.secretlib.exception.HiDataDecoderException;
 import com.secretlib.io.jpeg.DecoderJpeg;
 import com.secretlib.io.jpeg.ReaderJpeg;
@@ -86,15 +87,11 @@ public class HiDataJpegInputStream extends HiDataAbstractInputStream {
             }
         }
         HiDataBagBuilder bagBuilder = new HiDataBagBuilder(getBag());
-        DecoderJpeg.decode(reader.getFrame(), p, bagBuilder);
-        bagBuilder.close();
-/*
-        data = new ByteArrayOutputStream();
-        DecoderJpeg.decode(reader.getFrame(), p, data);
-        if (!getBag().parse(data.toByteArray()))
-        {
-            throw new HiDataDecoderException("No data found");
+        try {
+            DecoderJpeg.decode(reader.getFrame(), p, bagBuilder);
+        } catch (BagParseFinishException e) {
+            // NO OP
         }
-*/
+        bagBuilder.close();
     }
 }

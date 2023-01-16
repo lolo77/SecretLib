@@ -26,7 +26,7 @@ public abstract class HiDataAbstractInputStream extends InputStream {
 
     public abstract List<String> getExtensions();
     public abstract boolean matches(byte[] in);
-    public abstract HiDataAbstractInputStream create(InputStream in, Parameters p) throws IOException, HiDataDecoderException, TruncatedBagException;
+    public abstract HiDataAbstractInputStream create(InputStream in, Parameters p) throws IOException;
 
     /**
      *
