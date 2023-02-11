@@ -126,13 +126,20 @@ public class HiDataBag {
 
 
     /**
-     * Add a data fragment to the bag
+     * Add a chunk to the bag
      *
      * @param item the data fragment
-     * @return the fragment index
+     * @return the chunk index or -1 if the chunk was not added
      */
     public int addItem(AbstractChunk item) {
         LOG.begin("addItem");
+        if (item instanceof ChunkHash) {
+            ChunkHash ch = findChunkHash();
+            if (ch != null) {
+                ch.setHashName(((ChunkHash) item).getHashName());
+                return -1;
+            }
+        }
         int idx = 0;
         if (items.size() > 0) {
             AbstractChunk last = items.get(items.size() - 1);
@@ -177,6 +184,57 @@ public class HiDataBag {
                 itemData.decryptData(p);
             }
         }
+    }
+
+    public boolean hasUnencryptedItem() {
+        for (AbstractChunk item : items) {
+            if (item instanceof ChunkData) {
+                ChunkData itemData = (ChunkData) item;
+                if (!itemData.isEncrypted()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean hasEncryptedItem() {
+        for (AbstractChunk item : items) {
+            if (item instanceof ChunkData) {
+                ChunkData itemData = (ChunkData) item;
+                if (itemData.isEncrypted()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public ChunkHash findChunkHash() {
+        for (AbstractChunk c : items) {
+            if (c instanceof ChunkHash) {
+                return (ChunkHash) c;
+            }
+        }
+        return null;
+    }
+
+    public void addHash(String hashAlgo) {
+        ChunkHash ch = findChunkHash();
+        if (ch == null) {
+            ch = new ChunkHash();
+            addItem(ch);
+        }
+        ch.setHashName(hashAlgo);
+    }
+
+    public boolean checkHash() {
+        ChunkHash ch = findChunkHash();
+        if (ch == null) {
+            LOG.debug("No hash");
+            return true;
+        }
+        return ch.verifyHash(this);
     }
 
     /**

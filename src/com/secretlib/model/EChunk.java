@@ -11,7 +11,8 @@ import java.util.EnumSet;
 public enum EChunk {
 
     STOP((byte) 0x00, ChunkStop.class),
-    DATA((byte) 0x01, ChunkData.class);
+    DATA((byte) 0x01, ChunkData.class),
+    HASH((byte) 0x02, ChunkHash.class);
 
     private static final Log LOG = new Log(EChunk.class);
 
