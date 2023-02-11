@@ -25,10 +25,10 @@ public class ChunkHash extends AbstractChunk {
 
     private static final Log LOG = new Log(ChunkHash.class);
 
-    private static final String DEFAULT_HASH_IMPLEMENTATION_NAME = "SHA-256";
+    public static final String HASHNAME_DEFAULT = "SHA-256";
 
     // Hash implementation name. Ex: "SHA-256"
-    private String hashName = DEFAULT_HASH_IMPLEMENTATION_NAME;
+    private String hashName = HASHNAME_DEFAULT;
 
     // The binary hash data
 

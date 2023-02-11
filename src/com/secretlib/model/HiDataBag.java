@@ -219,6 +219,13 @@ public class HiDataBag {
         return null;
     }
 
+    /**
+     * Adds a ChunkHash
+     * Must be called after having encrypted all ChunkData.
+     * Only one ChunkHash must be present
+     * @param hashAlgo the Hash algo. If null, no change is applied.
+     *                 Default algo is set to ChunkHash.HASHNAME_DEFAULT
+     */
     public void addHash(String hashAlgo) {
         ChunkHash ch = findChunkHash();
         if (ch == null) {
@@ -226,9 +233,27 @@ public class HiDataBag {
             addItem(ch);
         }
         ch.setHashName(hashAlgo);
+        ch.computeHash(this);
     }
 
-    public boolean checkHash() {
+    /**
+     * Remove the ChunkHash if exists.
+     */
+    public void removeHash() {
+        Iterator<AbstractChunk> iter = items.iterator();
+        while (iter.hasNext()) {
+            AbstractChunk c = iter.next();
+            if (c instanceof ChunkHash) {
+                iter.remove();
+            }
+        }
+    }
+
+    /**
+     * Compute the hash and verify against the stored hash
+     * @return true if the hash equals the stored hashresult or if no hash stored. False otherwise.
+     */
+    public boolean verifyHash() {
         ChunkHash ch = findChunkHash();
         if (ch == null) {
             LOG.debug("No hash");
