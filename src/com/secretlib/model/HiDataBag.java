@@ -175,6 +175,8 @@ public class HiDataBag {
                 itemData.encryptData(p);
             }
         }
+
+        updateHash();
     }
 
     public void decryptAll(Parameters p) throws GeneralSecurityException, TruncatedBagException {
@@ -217,6 +219,13 @@ public class HiDataBag {
             }
         }
         return null;
+    }
+
+    public void updateHash() {
+        ChunkHash ch = findChunkHash();
+        if (ch != null) {
+            ch.computeHash(this);
+        }
     }
 
     /**
