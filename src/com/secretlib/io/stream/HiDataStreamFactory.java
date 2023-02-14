@@ -21,6 +21,11 @@ public class HiDataStreamFactory {
     private static final List<HiDataAbstractInputStream> LST_IN = new ArrayList<>();
     private static final List<HiDataAbstractOutputStream> LST_OUT = new ArrayList<>();
 
+
+    private static List<String> lstExtIn;
+    private static List<String> lstExtOut;
+
+
     /**
      * Register default HiData streams
      */
@@ -42,28 +47,44 @@ public class HiDataStreamFactory {
 
     public static void registerInputStream(HiDataAbstractInputStream stream) {
         LST_IN.add(stream);
+        updateListSupportedInputExtensions();
     }
 
     public static void registerOutputStream(HiDataAbstractOutputStream stream) {
         LST_OUT.add(stream);
+        updateListSupportedOutputExtensions();
     }
 
-    public static List<String> getSupportedInputExtensions() {
+    public static boolean isSupportedInputExtension(String ext) {
+        return lstExtIn.contains(ext);
+    }
+
+    public static boolean isSupportedOutputExtension(String ext) {
+        return lstExtOut.contains(ext);
+    }
+
+    private static void updateListSupportedInputExtensions() {
         List<String> lst = new ArrayList<>();
         for (HiDataAbstractInputStream is : LST_IN) {
             lst.addAll(is.getExtensions());
         }
-
-        return lst;
+        lstExtIn = lst;
     }
 
-    public static List<String> getSupportedOutputExtensions() {
+    private static void updateListSupportedOutputExtensions() {
         List<String> lst = new ArrayList<>();
         for (HiDataAbstractOutputStream is : LST_OUT) {
             lst.addAll(is.getExtensions());
         }
+        lstExtOut = lst;
+    }
 
-        return lst;
+    public static List<String> getSupportedInputExtensions() {
+        return Collections.unmodifiableList(lstExtIn);
+    }
+
+    public static List<String> getSupportedOutputExtensions() {
+        return Collections.unmodifiableList(lstExtOut);
     }
 
     /**
