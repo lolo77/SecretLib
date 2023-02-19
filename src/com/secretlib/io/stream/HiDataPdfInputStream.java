@@ -23,10 +23,17 @@ public class HiDataPdfInputStream extends HiDataAbstractInputStream {
 
     private static final byte[] HEADER = new byte[] {(byte)0x25, (byte)0x50, (byte)0x44, (byte)0x46, (byte)0x2D};
 
+    static final String CODEC_NAME = "PDF/BINARY/20230101";
 
     public HiDataPdfInputStream()
     {
 
+    }
+
+
+    @Override
+    public String getCodecName() {
+        return CODEC_NAME;
     }
 
     public List<String> getExtensions() {

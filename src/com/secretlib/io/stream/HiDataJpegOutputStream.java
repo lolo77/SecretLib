@@ -42,6 +42,11 @@ public class HiDataJpegOutputStream extends HiDataAbstractOutputStream {
 
     }
 
+    @Override
+    public String getCodecName() {
+        return HiDataJpegInputStream.CODEC_NAME;
+    }
+
     public List<String> getExtensions() {
         return Collections.unmodifiableList(EXTENTIONS);
     }

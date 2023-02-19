@@ -26,6 +26,8 @@ import java.util.List;
 public class HiDataJpegInputStream extends HiDataAbstractInputStream {
     private static final Log LOG = new Log(HiDataJpegInputStream.class);
 
+    static final String CODEC_NAME = "JPEG/BINARY/20230101";
+
     private static final byte[] HEADER = new byte[] {(byte)0xFF, (byte)0xD8, (byte)0xFF};
 
     public HiDataJpegInputStream() {
@@ -43,6 +45,11 @@ public class HiDataJpegInputStream extends HiDataAbstractInputStream {
 
     public HiDataAbstractInputStream create(InputStream in, Parameters p) throws IOException {
         return new HiDataJpegInputStream(in, p);
+    }
+
+    @Override
+    public String getCodecName() {
+        return CODEC_NAME;
     }
 
 

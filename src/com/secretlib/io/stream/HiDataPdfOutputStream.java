@@ -33,6 +33,11 @@ public class HiDataPdfOutputStream extends HiDataAbstractOutputStream {
 
     }
 
+    @Override
+    public String getCodecName() {
+        return HiDataPdfInputStream.CODEC_NAME;
+    }
+
     public List<String> getExtensions() {
         return Collections.unmodifiableList(EXTENTIONS);
     }

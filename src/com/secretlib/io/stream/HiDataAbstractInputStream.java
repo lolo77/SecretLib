@@ -28,6 +28,8 @@ public abstract class HiDataAbstractInputStream extends InputStream {
     public abstract boolean matches(byte[] in);
     public abstract HiDataAbstractInputStream create(InputStream in, Parameters p) throws IOException;
 
+    public abstract String getCodecName();
+
     /**
      *
      * @return the secret data bag

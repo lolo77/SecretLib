@@ -20,7 +20,6 @@ import java.util.List;
 public abstract class HiDataAbstractOutputStream extends OutputStream {
     private static final Log LOG = new Log(HiDataAbstractOutputStream.class);
 
-
     protected ByteArrayOutputStream buf;
     protected Parameters params;
     protected OutputStream out;
@@ -28,6 +27,8 @@ public abstract class HiDataAbstractOutputStream extends OutputStream {
     public abstract List<String> getExtensions();
     public abstract boolean matches(String ext);
     public abstract HiDataAbstractOutputStream create(InputStream in, OutputStream out, Parameters p) throws IOException;
+
+    public abstract String getCodecName();
 
     public HiDataAbstractOutputStream() {
 

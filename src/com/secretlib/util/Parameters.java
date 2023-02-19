@@ -159,4 +159,8 @@ public class Parameters {
     public void setProgressCallBack(IProgressCallback progressCallBack) {
         this.progressCallBack = progressCallBack;
     }
+
+    public HashMap<String, Object> getExtendedParams() {
+        return extendedParams;
+    }
 }
