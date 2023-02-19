@@ -18,7 +18,7 @@ import java.util.List;
  */
 public abstract class HiDataAbstractInputStream extends InputStream {
     private ByteArrayInputStream in = null;
-    private HiDataBag bag = new HiDataBag();
+    protected HiDataBag bag = new HiDataBag();
 
     protected HiDataAbstractInputStream() {
 
