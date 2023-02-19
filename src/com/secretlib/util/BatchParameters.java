@@ -47,7 +47,7 @@ public class BatchParameters extends Parameters {
     }
 
     @Override
-    protected void consumeArgExt(String arg, Iterator<String> iter) {
+    protected boolean consumeArgExt(String arg, Iterator<String> iter) {
         LOG.begin("consumeArgExt");
 
         boolean b = false;
@@ -100,6 +100,7 @@ public class BatchParameters extends Parameters {
         }
 
         LOG.end("consumeArgExt");
+        return b;
     }
 
 

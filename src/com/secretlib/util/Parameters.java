@@ -3,7 +3,9 @@ package com.secretlib.util;
 import com.secretlib.model.IProgressCallback;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Properties;
 
 /**
  * @author Florent FRADET
@@ -27,6 +29,9 @@ public class Parameters {
 
     private static final String AUTO_EXTEND_BIT = "eb";
     private boolean autoExtendBit = false;
+
+    private HashMap<String, Object> extendedParams = new HashMap<>();
+
 
     private IProgressCallback progressCallBack = null;
 
@@ -94,16 +99,17 @@ public class Parameters {
         }
 
         if (!b) {
-            consumeArgExt(arg, iter);
+            b = consumeArgExt(arg, iter);
         }
 
         LOG.end("consumeArg returns " + b);
         return b;
     }
 
-    protected void consumeArgExt(String arg, Iterator<String> iter) {
+    protected boolean consumeArgExt(String arg, Iterator<String> iter) {
         // To be overridden in child class
         LOG.warn("Unknown option '" + arg + "' - Ignored");
+        return false;
     }
 
     public String getHashAlgo() {

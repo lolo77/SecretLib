@@ -142,7 +142,7 @@ public class ChunkData extends AbstractChunk {
 
             byte buf[] = Arrays.copyOfRange(theData, offset, offset + nameLen);
             offset += nameLen;
-            name = new String(buf);
+            name = new String(buf, StandardCharsets.UTF_8);
             LOG.debug("Name : " + name);
             data = Arrays.copyOfRange(theData, offset, offset + dataLen);
             return true;
