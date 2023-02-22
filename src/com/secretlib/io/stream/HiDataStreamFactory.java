@@ -55,6 +55,18 @@ public class HiDataStreamFactory {
         updateListSupportedOutputExtensions();
     }
 
+    public static void unregisterInputStream(HiDataAbstractInputStream stream) {
+        if (LST_IN.remove(stream)) {
+            updateListSupportedInputExtensions();
+        }
+    }
+
+    public static void unregisterOutputStream(HiDataAbstractOutputStream stream) {
+        if (LST_OUT.remove(stream)) {
+            updateListSupportedInputExtensions();
+        }
+    }
+
     public static boolean isSupportedInputExtension(String ext) {
         return lstExtIn.contains(ext);
     }
@@ -66,7 +78,11 @@ public class HiDataStreamFactory {
     private static void updateListSupportedInputExtensions() {
         List<String> lst = new ArrayList<>();
         for (HiDataAbstractInputStream is : LST_IN) {
-            lst.addAll(is.getExtensions());
+            for (String ext : is.getExtensions()) {
+                if (!lst.contains(ext)) {
+                    lst.add(ext);
+                }
+            }
         }
         lstExtIn = lst;
     }
@@ -74,7 +90,11 @@ public class HiDataStreamFactory {
     private static void updateListSupportedOutputExtensions() {
         List<String> lst = new ArrayList<>();
         for (HiDataAbstractOutputStream is : LST_OUT) {
-            lst.addAll(is.getExtensions());
+            for (String ext : is.getExtensions()) {
+                if (!lst.contains(ext)) {
+                    lst.add(ext);
+                }
+            }
         }
         lstExtOut = lst;
     }
