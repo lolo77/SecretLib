@@ -15,6 +15,10 @@ public class Parameters {
 
     private static final Log LOG = new Log(Parameters.class);
 
+
+    private static final String CODEC = "codec";
+    private String codec = null;
+
     private static final String HASH_ALGO = "h";
     private String hashAlgo = "SHA-512";
 
@@ -64,6 +68,12 @@ public class Parameters {
 
         LOG.debug("arg : " + arg);
 
+
+        if (CODEC.equals(arg)) {
+            codec = iter.next();
+            b = true;
+        }
+
         if (HASH_ALGO.equals(arg)) {
             hashAlgo = iter.next();
             b = true;
@@ -112,6 +122,9 @@ public class Parameters {
         return false;
     }
 
+    public String getCodec() {
+        return codec;
+    }
     public String getHashAlgo() {
         return hashAlgo;
     }
@@ -130,6 +143,10 @@ public class Parameters {
 
     public boolean isAutoExtendBit() {
         return autoExtendBit;
+    }
+
+    public void setCodec(String codec) {
+        this.codec = codec;
     }
 
     public void setHashAlgo(String hashAlgo) {

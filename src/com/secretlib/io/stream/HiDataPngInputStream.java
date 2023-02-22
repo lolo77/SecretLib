@@ -25,7 +25,7 @@ public class HiDataPngInputStream extends HiDataAbstractInputStream {
 
     private static final byte[] HEADER = new byte[] {(byte)0x89, (byte)0x50, (byte)0x4E, (byte)0x47, (byte)0x0D, (byte)0x0A, (byte)0x1A, (byte)0x0A};
 
-    static final String CODEC_NAME = "PNG/BINARY/20230101";
+    static final String CODEC_NAME = "SecretLib/1";
 
 
     public HiDataPngInputStream()

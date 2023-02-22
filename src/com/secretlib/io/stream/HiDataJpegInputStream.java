@@ -26,7 +26,7 @@ import java.util.List;
 public class HiDataJpegInputStream extends HiDataAbstractInputStream {
     private static final Log LOG = new Log(HiDataJpegInputStream.class);
 
-    static final String CODEC_NAME = "JPEG/BINARY/20230101";
+    static final String CODEC_NAME = "SecretLib/1";
 
     private static final byte[] HEADER = new byte[] {(byte)0xFF, (byte)0xD8, (byte)0xFF};
 

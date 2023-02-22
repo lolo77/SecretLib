@@ -18,12 +18,18 @@ public class HiDataStreamFactory {
 
     private static final Log LOG = new Log(HiDataStreamFactory.class);
 
+    // Stream lists
     private static final List<HiDataAbstractInputStream> LST_IN = new ArrayList<>();
     private static final List<HiDataAbstractOutputStream> LST_OUT = new ArrayList<>();
 
+    // Codec maps
+    private static Map<String, HiDataAbstractInputStream> MAP_IN = new HashMap<>();
+    private static Map<String, HiDataAbstractOutputStream> MAP_OUT = new HashMap<>();
 
+    // Extension lists
     private static List<String> lstExtIn;
     private static List<String> lstExtOut;
+
 
 
     /**
@@ -47,22 +53,26 @@ public class HiDataStreamFactory {
 
     public static void registerInputStream(HiDataAbstractInputStream stream) {
         LST_IN.add(stream);
+        MAP_IN.put(stream.getCodecName(), stream);
         updateListSupportedInputExtensions();
     }
 
     public static void registerOutputStream(HiDataAbstractOutputStream stream) {
         LST_OUT.add(stream);
+        MAP_OUT.put(stream.getCodecName(), stream);
         updateListSupportedOutputExtensions();
     }
 
     public static void unregisterInputStream(HiDataAbstractInputStream stream) {
         if (LST_IN.remove(stream)) {
+            MAP_IN.remove(stream.getCodecName());
             updateListSupportedInputExtensions();
         }
     }
 
     public static void unregisterOutputStream(HiDataAbstractOutputStream stream) {
         if (LST_OUT.remove(stream)) {
+            MAP_OUT.remove(stream.getCodecName());
             updateListSupportedInputExtensions();
         }
     }
@@ -107,6 +117,14 @@ public class HiDataStreamFactory {
         return Collections.unmodifiableList(lstExtOut);
     }
 
+    public static Set<String> getListCodecsInput() {
+        return Collections.unmodifiableSet(MAP_IN.keySet());
+    }
+
+    public static Set<String> getListCodecsOutput() {
+        return Collections.unmodifiableSet(MAP_OUT.keySet());
+    }
+
     /**
      *
      * @param in the input image byte stream
@@ -118,9 +136,12 @@ public class HiDataStreamFactory {
     public static HiDataAbstractInputStream createInputStream(InputStream in, Parameters p) throws Exception {
         byte[] data = HiUtils.readAllBytes(in);
 
+        String codec = p.getCodec();
         for (HiDataAbstractInputStream inst : LST_IN) {
             if (inst.matches(data)) {
-                return inst.create(new ByteArrayInputStream(data), p);
+                if ((codec == null) || (inst.getCodecName().equals(codec))) {
+                    return inst.create(new ByteArrayInputStream(data), p);
+                }
             }
         }
 
@@ -143,9 +164,12 @@ public class HiDataStreamFactory {
      */
     public static HiDataAbstractOutputStream createOutputStream(InputStream in, OutputStream out, Parameters p, String ext) throws Exception {
         String lcExt = ext.toLowerCase(Locale.ROOT);
+        String codec = p.getCodec();
         for (HiDataAbstractOutputStream inst : LST_OUT) {
             if (inst.matches(lcExt)) {
-                return inst.create(in, out, p);
+                if ((codec == null) || (inst.getCodecName().equals(codec))) {
+                    return inst.create(in, out, p);
+                }
             }
         }
 
