@@ -106,12 +106,13 @@ public class HiDataEncoderJob extends HiDataJob {
         HiDataBag bag = new HiDataBag();
         if (params.isAppend()) {
             HiDataAbstractInputStream ins = HiDataStreamFactory.createInputStream(fsIn, params);
+            params.setCodec(ins.getOutputCodecName()); // Select the reciprocal codec
             bag = ins.getBag();
             fsIn = new FileInputStream(fIn); // Reset stream
         }
 
         try {
-            HiDataAbstractOutputStream out = HiDataStreamFactory.createOutputStream(fsIn, fsOut, params, HiUtils.getFileExt(fOut));
+            HiDataAbstractOutputStream out = HiDataStreamFactory.createOutputStream(fsIn, fsOut, params);
             loadInputFile(bag);
             out.write(bag.toByteArray());
             // Encoding is actually done on close() call

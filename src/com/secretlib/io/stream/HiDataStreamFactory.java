@@ -1,18 +1,19 @@
 package com.secretlib.io.stream;
 
+import com.secretlib.util.HiUtils;
 import com.secretlib.util.Log;
 import com.secretlib.util.Parameters;
-import com.secretlib.util.HiUtils;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.*;
 
 
 /**
  * @author Florent FRADET
- *
+ * <p>
  * Build the correct stream according to the provided InputStream file format
- *
  */
 public class HiDataStreamFactory {
 
@@ -29,7 +30,6 @@ public class HiDataStreamFactory {
     // Extension lists
     private static List<String> lstExtIn;
     private static List<String> lstExtOut;
-
 
 
     /**
@@ -109,6 +109,14 @@ public class HiDataStreamFactory {
         lstExtOut = lst;
     }
 
+    public static HiDataAbstractInputStream getAbstractInputStreamForCodec(String codec) {
+        return MAP_IN.get(codec);
+    }
+
+    public static HiDataAbstractOutputStream getAbstractOutputStreamForCodec(String codec) {
+        return MAP_OUT.get(codec);
+    }
+
     public static List<String> getSupportedInputExtensions() {
         return Collections.unmodifiableList(lstExtIn);
     }
@@ -126,11 +134,10 @@ public class HiDataStreamFactory {
     }
 
     /**
-     *
      * @param in the input image byte stream
-     * @param p the secret decoding params
+     * @param p  the secret decoding params
      * @return the InputStream able to read and decode the provided raw bytes InputStream
-     *          null if format not supported
+     * null if format not supported
      * @throws Exception if any I/O or decoding error occurs
      */
     public static HiDataAbstractInputStream createInputStream(InputStream in, Parameters p) throws Exception {
@@ -154,22 +161,18 @@ public class HiDataStreamFactory {
      * Further calls to write will store the secret raw data.
      * Call to close() wille generate the output image.
      *
-     * @param in the input image (either png or jpg)
+     * @param in  the input image (either png or jpg)
      * @param out the ouput image (ie. 'ext' param) - must be a different file than the InputStream
-     * @param p encoding parameters
-     * @param ext the output file extension
+     * @param p   encoding parameters
      * @return the specific Stream
-     *          null if format not supported
+     * null if format not supported
      * @throws Exception if any error occurs
      */
-    public static HiDataAbstractOutputStream createOutputStream(InputStream in, OutputStream out, Parameters p, String ext) throws Exception {
-        String lcExt = ext.toLowerCase(Locale.ROOT);
+    public static HiDataAbstractOutputStream createOutputStream(InputStream in, OutputStream out, Parameters p) throws Exception {
         String codec = p.getCodec();
         for (HiDataAbstractOutputStream inst : LST_OUT) {
-            if (inst.matches(lcExt)) {
-                if ((codec == null) || (inst.getCodecName().equals(codec))) {
-                    return inst.create(in, out, p);
-                }
+            if ((codec == null) || (inst.getCodecName().equals(codec))) {
+                return inst.create(in, out, p);
             }
         }
 

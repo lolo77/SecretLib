@@ -51,6 +51,10 @@ public class HiDataJpegInputStream extends HiDataAbstractInputStream {
     public String getCodecName() {
         return CODEC_NAME;
     }
+    @Override
+    public String getOutputCodecName() {
+        return HiDataJpegOutputStream.CODEC_NAME;
+    }
 
 
     /**

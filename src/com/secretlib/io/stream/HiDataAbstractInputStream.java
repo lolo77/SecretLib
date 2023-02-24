@@ -29,6 +29,7 @@ public abstract class HiDataAbstractInputStream extends InputStream {
     public abstract HiDataAbstractInputStream create(InputStream in, Parameters p) throws IOException;
 
     public abstract String getCodecName();
+    public abstract String getOutputCodecName();
 
     /**
      *

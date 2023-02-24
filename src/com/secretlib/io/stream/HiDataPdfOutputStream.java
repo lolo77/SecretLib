@@ -20,6 +20,8 @@ public class HiDataPdfOutputStream extends HiDataAbstractOutputStream {
 
     private static final Log LOG = new Log(HiDataPdfOutputStream.class);
 
+    static final String CODEC_NAME = "SecretLib/1/PDF";
+
     // package-level
     static final List<String> EXTENTIONS = new ArrayList<>();
 
@@ -35,7 +37,7 @@ public class HiDataPdfOutputStream extends HiDataAbstractOutputStream {
 
     @Override
     public String getCodecName() {
-        return HiDataPdfInputStream.CODEC_NAME;
+        return CODEC_NAME;
     }
 
     public List<String> getExtensions() {

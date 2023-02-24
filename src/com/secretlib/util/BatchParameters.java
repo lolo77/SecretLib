@@ -38,6 +38,13 @@ public class BatchParameters extends Parameters {
         LOG.end("constructor");
     }
 
+    public BatchParameters(Parameters p) {
+        super(p);
+        LOG.begin("constructor from Parameters");
+
+        LOG.end("constructor from Parameters");
+    }
+
     public BatchParameters (String[] args) {
         this();
         LOG.begin("constructor String[] args");

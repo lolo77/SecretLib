@@ -37,6 +37,10 @@ public class HiDataPngInputStream extends HiDataAbstractInputStream {
     public String getCodecName() {
         return CODEC_NAME;
     }
+    @Override
+    public String getOutputCodecName() {
+        return HiDataPngOutputStream.CODEC_NAME;
+    }
 
     public List<String> getExtensions() {
         return Collections.unmodifiableList(HiDataPngOutputStream.EXTENTIONS);

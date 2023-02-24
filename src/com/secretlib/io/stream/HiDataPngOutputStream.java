@@ -22,6 +22,8 @@ public class HiDataPngOutputStream extends HiDataAbstractOutputStream {
 
     private static final Log LOG = new Log(HiDataPngOutputStream.class);
 
+    static final String CODEC_NAME = "SecretLib/1/PNG";
+
     // package-level
     static final List<String> EXTENTIONS = new ArrayList<>();
 
@@ -37,7 +39,7 @@ public class HiDataPngOutputStream extends HiDataAbstractOutputStream {
 
     @Override
     public String getCodecName() {
-        return HiDataPngInputStream.CODEC_NAME;
+        return CODEC_NAME;
     }
 
     public List<String> getExtensions() {

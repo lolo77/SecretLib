@@ -26,6 +26,8 @@ import java.util.List;
 public class HiDataJpegOutputStream extends HiDataAbstractOutputStream {
     private static final Log LOG = new Log(HiDataJpegOutputStream.class);
 
+    static final String CODEC_NAME = "SecretLib/1/JPEG";
+
     // package-level
     static final List<String> EXTENTIONS = new ArrayList<>();
 
@@ -44,7 +46,7 @@ public class HiDataJpegOutputStream extends HiDataAbstractOutputStream {
 
     @Override
     public String getCodecName() {
-        return HiDataJpegInputStream.CODEC_NAME;
+        return CODEC_NAME;
     }
 
     public List<String> getExtensions() {

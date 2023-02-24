@@ -45,6 +45,22 @@ public class Parameters {
         LOG.end("constructor");
     }
 
+    public Parameters (Parameters p) {
+        this();
+        LOG.begin("constructor copy");
+
+        codec = p.codec;
+        hashAlgo = p.hashAlgo;
+        km = p.km;
+        kd = p.kd;
+        bitStart = p.bitStart;
+        autoExtendBit = p.autoExtendBit;
+        extendedParams = p.extendedParams;
+        progressCallBack = p.progressCallBack;
+
+        LOG.end("constructor copy");
+    }
+
     public Parameters (String[] args) {
         this();
         LOG.begin("constructor String[] args");
