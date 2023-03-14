@@ -117,6 +117,18 @@ public class HiDataStreamFactory {
         return MAP_OUT.get(codec);
     }
 
+    public static String getSupportedOutputCodecForExtension(String ext) {
+        for (Map.Entry<String,HiDataAbstractOutputStream> e : MAP_OUT.entrySet()) {
+            String codec = e.getKey();
+            HiDataAbstractOutputStream s = e.getValue();
+            List<String> lstExts = s.getExtensions();
+            if (lstExts.contains(ext)) {
+                return codec;
+            }
+        }
+        return null;
+    }
+
     public static List<String> getSupportedInputExtensions() {
         return Collections.unmodifiableList(lstExtIn);
     }
