@@ -8,6 +8,8 @@ package com.secretlib.model;
 public enum ProgressStepEnum {
 
     ENCODE, DECODE,
-    READ, WRITE;
+    READ, WRITE,
+
+    DOWNLOAD, UPLOAD;
 
 }
